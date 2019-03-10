@@ -11,6 +11,7 @@ class Compilador{
 		//Variables
 		string cadena; // arreglo donde queda guardado lo que se extrajo
         int i=0; // el contador en el arreglo
+		int ref; 
         int j; //Contador para los strings
         
         //Metodos
@@ -33,7 +34,7 @@ string Compilador::generarCadena(){
 				return palabras();
 		}/// inicia con una letr
 		else if(aux==32){
-				return "espacio";
+				return "sp";
 		}	
 		else { // inicia con un numero o un punto   
 		     return numeros();
@@ -117,10 +118,10 @@ void Compilador::extraerTexto(){
 					cout<<"No se pudo encontrar el documento"<<endl;	
 					}else{
 		
-							while(!documento.eof()){
+							while(!documento.eof(){
 							getline(documento, cadena);	
 	      					}
-	
+	                     ref=cadena.length();
 					documento.close();
 				}		   
        }
