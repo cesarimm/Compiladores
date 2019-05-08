@@ -1,3 +1,1 @@
-a1234 % hola Radio 123asasas 
-1562893746.780 =int 
-!!! % hola 123variable= Que onda  amigos!!! HOLA MAJO QUE TAL!!! 
+a1234 % hola Radio 123asasas 1562893746.780 =int !!! % hola 123variable= Que onda  amigos!!! HOLA MAJO QUE TAL!!! 

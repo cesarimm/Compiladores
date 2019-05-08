@@ -26,13 +26,13 @@ int main(){
 	bool error; //= true;
 	
 
-	/*do{
+	do{
 		 error=buscarSimbolo(comp.generarCadena());
 		 if(!error)
 		 cout<<"Con errores: "<<conErrores<<endl;
 			 
 		//cout<<comp.i<<endl;	 
-	}while(comp.ref!=comp.i);*/
+	}while(comp.ref!=comp.i);
 	
 	
 	return 0;
