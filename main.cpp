@@ -22,18 +22,18 @@ int main(){
 	//	cout<<vSimbolo[1];
 	//cout<<vSimbolos[0];
 	
-	//cout<<"Referencia :"<<comp.ref<<endl;
 	bool error; //= true;
 	
 
-	do{
+	/*do{
 		 error=buscarSimbolo(comp.generarCadena());
 		 if(!error)
 		 cout<<"Con errores: "<<conErrores<<endl;
 			 
 		//cout<<comp.i<<endl;	 
-	}while(comp.ref!=comp.i);
+	}while(comp.ref!=comp.i);*/
 	
+	comp.programa();
 	
 	return 0;
 }

@@ -5,6 +5,7 @@
 
 using namespace std;
 
+///Notas: Verificar ident y num!!!
 
 class Compilador{
 	public:
@@ -176,7 +177,7 @@ char Compilador::encontrarValor(){
 //Funciones del BNF
 
   	    void Compilador::programa(){
-  	    	  if(!bloque()){
+  	    	  if(bloque()){
   	    	  	//Bye
   	    	  	printf("Todo bien");
 				}else{
@@ -185,79 +186,145 @@ char Compilador::encontrarValor(){
 				}	  
 		  }
 		  
-		bool Compilador::bloque(){
-  	    	if(aux1()){
-  	    		 if(aux6()){
-  	    		 	 if(aux10()){
-  	    		 	 	  if(instruccion()){
-  	    		 	 	  	  //Todas se cumplieron de la forma correcta
-  	    		 	 	  	   return true;
-							  }else
-							  //Hay error
-							  return false;
-						}else
-						//Hay error 
-					    return false;
-				   }else
-				    //Hay error
-				    return false;
-			  }else
-			  	//Hay un error
-			  	return false;	  
-        }
+		  
+		bool Compilador::bloque(){   
+		     ///Faltaria follows
+  	          if(aux1()&&aux6()&&aux10()&&instruccion()) return true;
+  	           else return false;	
+            }
+		  
+
 		  
 		bool Compilador::aux1(){
-  	    	 //if(generarCadena()=="prnft"){
-  	    
-  	    	 return false;
-		  }
-		  
+			
+  	    	 if(generarCadena()=="-"&&aux2()&&aux3()&&generarCadena()=="!"){
+  	           return true;
+  	    	 }else{
+  	    	 	 //Es el follow de aux1
+  	    	    	string aux = generarCadena();
+  	    	 	   if(aux=="'\'"||aux=="declara."||aux=="go."||aux=="cuando"||
+					  aux=="Sii"||aux=="IDENT"||aux=="}"||aux=="?"||aux=="BYE") return true;
+				   else return false;
+		      }
+	  
+	    }
+	    
 		bool Compilador::aux2(){
-  	    	return false;
+			string aux = generarCadena();
+  	     if(aux=="entero"||aux=="decimal"||aux=="bool"||aux=="cadena"||
+		    aux=="simbolo"||aux=="void") return true;
+	       return false;
 		  }
 		  
 		bool Compilador::aux3(){
-  	    	return false;
+			///Saber que es un identificador osea un nombre de una variable o de alguna funcion
+  	    	 if(gerenarCadena()!=""&&aux4()) return true;    
+			 else return false;
 		  }
 		  
 		bool Compilador::aux4(){
-  	    	return false;
+			///Saber que es un numero
+  	         if(gerenarCadena()!=""&&generarCadena()=="?"&&aux3()) return true;	    
+			else{
+			 //Follow de aux4
+				if(generarCadena()=="!")
+				  return true;
+				else return false;
+			}
 		  }
 		  
 		bool Compilador::aux6(){
-  	    	return false;
+						
+			
+  	     if(gerenarCadena()=="'\'"&&aux2()&&aux7()&&generarCadena()=="!"){
+  	    	 return true;
+			   }    
+			else{
+				string aux=generarCadena();
+				if(aux=="declara."||aux=="go."||aux=="cuando"|| aux=="Sii"||
+				    aux=="IDENT"||aux=="}"||aux=="?"||aux=="BYE") return true;
+				   else return false;
+			}
 		  }
 		  
 		bool Compilador::aux7(){
-  	    	return false;
-		  }
+			
+			//Falta validar que sean identificadores o que sean numeros 
+  	         if(generarCadena()!="" && generarCadena()=="="&&  generarCadena()!="" && aux8() && && generarCadena()=="!"){
+  	          	 
+  	          	 	return true;
+  	          	 } else return false:
+  	              
+					}
+				
 		  
 		bool Compilador::aux8(){
-  	       return false;	
+			 if(generarCadena()=="?"&& aux7()){
+			 	return true;
+			 }else{
+			  if(generarCadena()=="!"){
+			  return true;  
+			  }
+			  else return false;
+			
+			 }
+			
+  	      	
 		  }
 		  
 		bool Compilador::aux10(){
-  	    	return false;
+              if(generarCadena()=="declara."&& aux2()&& generarCadena()!="" && generarCadena()=="(" 
+			         && aux12() && generarCadena()==")" && generarCadena()=="{" && aux14() && && generarCadena()=="}" && aux10() && generarCadena()=="!"){
+  	    	         return true;}
+  	    	else {
+  	    		string aux=generarCadena();
+  	    		
+  	    		/// No olvidar que IDENT se refiere a una variable( cualquier nombre que el usuario ponga)
+				if(aux=="go."||aux=="cuando"|| aux=="Sii"||
+				    aux=="IDENT"||aux=="}"||aux=="?"||aux=="BYE"||aux=="!") return true;
+				   else return false;
+  	    		
+  	    		
+			  }
 		  }
 		  
 		bool Compilador::aux12(){
-  	    	return false;
+			
+			if(generarCadena()!=""&& aux13() ) return true ;
+			
+  	    	else { return false;
+			  }
 		  }
 		  
 		bool Compilador::aux13(){
-  	    	 return false;
+			if(generarCadena()=="?"&& aux12()){
+				return true;
+		}else {
+			if (generarCadena()=="}") return true;
+			else return false;
 		  }
 		  
 	    bool Compilador::aux14(){
-  	    	return false;
+	    	if(instruccion()&& aux15()) return true;
+  	    	else return false;
 		  }
 		  
 		bool Compilador::aux15(){
-  	    	return false;
+			if(generarCadena()=="?"&& aux14()){
+				return true;
+			}
+			else 
+			{
+				if(generarCadena()==")") return true;
+				 
+				 else 	return false;
+
+			}
 		  }
 		  
 	    bool Compilador::instruccion(){
-  	    	return false;
+  	    	cout<<"Instruccion"<<endl;
+  	    	return true;
 		  }
 		  
 	    bool Compilador::aux17(){
