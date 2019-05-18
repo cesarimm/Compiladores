@@ -67,7 +67,8 @@ string Compilador::generarCadena(){
 				return palabras();
 		}/// inicia con una letr
 		else if(aux==32){
-				return "sp";
+			
+				return generarCadena();
 		}	
 		else { // inicia con un numero o un punto   
 		     return numeros();
@@ -80,8 +81,7 @@ string Compilador::generarCadena(){
 		string regreso="";
 		regreso=a;
 		return regreso;
-	}
-	
+	}	
 }
 
 
@@ -218,13 +218,15 @@ char Compilador::encontrarValor(){
 		  
 		bool Compilador::aux3(){
 			///Saber que es un identificador osea un nombre de una variable o de alguna funcion
-  	    	 if(gerenarCadena()!=""&&aux4()) return true;    
-			 else return false;
+				string aux = generarCadena();
+  	    	   if(aux!=""&&aux4()) return true;    
+			   else return false;
 		  }
+		  
 		  
 		bool Compilador::aux4(){
 			///Saber que es un numero
-  	         if(gerenarCadena()!=""&&generarCadena()=="?"&&aux3()) return true;	    
+  	         if(generarCadena()!=""&&(generarCadena()=="?")&&aux3()) return true;	    
 			else{
 			 //Follow de aux4
 				if(generarCadena()=="!")
@@ -233,10 +235,11 @@ char Compilador::encontrarValor(){
 			}
 		  }
 		  
+		  
 		bool Compilador::aux6(){
 						
 			
-  	     if(gerenarCadena()=="'\'"&&aux2()&&aux7()&&generarCadena()=="!"){
+  	     if(generarCadena()=="'\'"&&aux2()&&aux7()&&generarCadena()=="!"){
   	    	 return true;
 			   }    
 			else{
@@ -250,12 +253,11 @@ char Compilador::encontrarValor(){
 		bool Compilador::aux7(){
 			
 			//Falta validar que sean identificadores o que sean numeros 
-  	         if(generarCadena()!="" && generarCadena()=="="&&  generarCadena()!="" && aux8() && && generarCadena()=="!"){
-  	          	 
-  	          	 	return true;
-  	          	 } else return false:
+  	         if(generarCadena()!="" && generarCadena()=="="&&  generarCadena()!="" && aux8() && generarCadena()=="!"){
+  	          	 	return true;	
+  	          	 } else return false;
   	              
-					}
+		}
 				
 		  
 		bool Compilador::aux8(){
@@ -274,7 +276,7 @@ char Compilador::encontrarValor(){
 		  
 		bool Compilador::aux10(){
               if(generarCadena()=="declara."&& aux2()&& generarCadena()!="" && generarCadena()=="(" 
-			         && aux12() && generarCadena()==")" && generarCadena()=="{" && aux14() && && generarCadena()=="}" && aux10() && generarCadena()=="!"){
+			         && aux12() && generarCadena()==")" && generarCadena()=="{" && aux14() && generarCadena()=="}" && aux10() && generarCadena()=="!"){
   	    	         return true;}
   	    	else {
   	    		string aux=generarCadena();
@@ -387,6 +389,7 @@ char Compilador::encontrarValor(){
   	              else return false;	
   	    
 		  }
+		  }
 		  
 		bool Compilador::aux26(){
 			
@@ -466,24 +469,23 @@ char Compilador::encontrarValor(){
 			
   	        if (aux19() && aux35() && aux19() &&  aux36()) return true ;
   	        else return false;
-				/// No tiene un folow directo 
-			
-				
+				/// No tiene un folow directo 				
 		  }
+		  
 		  
 		bool Compilador::aux35(){
 		   	string aux = generarCadena();
-				  if(aux!="!=" ||aux=="<" aux!=">" ||aux=="<=" aux!="=>" ||aux=="=="  ) return true;
+				  if(aux!="!=" ||aux=="<" || aux!=">" ||aux=="<=" || aux!="=>" ||aux=="=="  ) return true;
   	              else return false;
 		  }
 		  
+		  
 		bool Compilador::aux36(){
-			
-  	    	if (generarCadena()=="#" || generarCadena()=="&" ){
-				if(aux34()) return true;
-			
+			string aux = generarCadena();
+  	    	if ((aux=="#" || aux=="&")&&aux34()){
+			 return true;
 			} else{
-				if (generarCadena()==")") return true;
+				if (aux==")") return true;
 				else return false;
 					}
 		  }

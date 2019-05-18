@@ -33,7 +33,14 @@ int main(){
 		//cout<<comp.i<<endl;	 
 	}while(comp.ref!=comp.i);*/
 	
-	comp.programa();
+	
+	 	comp.programa();
+	 	
+	cout<<comp.generarCadena()<<endl;
+	cout<<comp.generarCadena()<<endl;
+	cout<<comp.generarCadena()<<endl;
+    cout<<comp.generarCadena()<<endl;
+
 	
 	return 0;
 }
