@@ -21,26 +21,24 @@ int main(){
 	//cout<<vSimbolo[0];
 	//	cout<<vSimbolo[1];
 	//cout<<vSimbolos[0];
-	
-	bool error; //= true;
-	
-
+		
 	/*do{
 		 error=buscarSimbolo(comp.generarCadena());
 		 if(!error)
-		 cout<<"Con errores: "<<conErrores<<endl;
-			 
+		 cout<<"Con errores: "<<conErrores<<endl;	 
 		//cout<<comp.i<<endl;	 
 	}while(comp.ref!=comp.i);*/
-	
-	
-	 	comp.programa();
+	 	//comp.programa();
 	 	
 	cout<<comp.generarCadena()<<endl;
 	cout<<comp.generarCadena()<<endl;
 	cout<<comp.generarCadena()<<endl;
+	cout<<comp.generarCadena()<<endl;
     cout<<comp.generarCadena()<<endl;
-
+    //if(buscarSimbolo("hola"))
+   // if(buscarSimbolo("123"))
+    //if(buscarSimbolo(" "))
+      // cout<<"Si sirve"<<endl;
 	
 	return 0;
 }

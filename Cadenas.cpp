@@ -67,7 +67,7 @@ string Compilador::generarCadena(){
 				return palabras();
 		}/// inicia con una letr
 		else if(aux==32){
-			
+			  
 				return generarCadena();
 		}	
 		else { // inicia con un numero o un punto   
@@ -84,24 +84,34 @@ string Compilador::generarCadena(){
 	}	
 }
 
+//funcion para evitar errores
+bool validarAux(char a){
+	if(a!='='&&a!='?'&&a!='!'&&a!='#'&&a!='&'&&a!='+'&&a!='-'&&a!='*'&&a!='/'&&a!='('&&a!=')'&&a!='{'&&a!='}'&&a!='_'&&a!='@')	return true;
+	else return false;
+}
 
 string Compilador::palabras(){
 	string regresa;
 	
 	regresa=cadena[i-1];
      int aux = (int) encontrarValor();
+     
 	 while (aux != 32 ){
-		regresa+=cadena[i-1];
-		 aux = (int) encontrarValor();
-		
+	 	if(validarAux(cadena[i-1])){
+	 			regresa+=cadena[i-1];
+		        aux = (int) encontrarValor();
+		 }else{
+		 	i--;
+		 	return regresa;
+		 }
+			
 	}
 	i--;
 	 return regresa;
 }
 
 
-string Compilador::numeros()
-{
+string Compilador::numeros(){
 	int punto = 0;
 	bool tieneLetra = false;
 	string regresa;
@@ -109,11 +119,13 @@ string Compilador::numeros()
 	regresa+=cadena[i-2];
 	
 	//Numeros de 48-57   while (aux != 32 && !(aux>=65&&aux<=90||aux>=97&&aux<=122)){
-	 while (aux != 32 && !(aux>=65&&aux<=90||aux>=97&&aux<=122||aux>=58&&aux<=64)){
-	 	
-	 	if((int)cadena[i-1]==46){
-	 		punto++;
-		}
+	//while (aux != 32 && !(aux>=65&&aux<=90||aux>=97&&aux<=122||aux>=58&&aux<=64||aux==40||aux==41)){
+    while (aux != 32 ){
+	  	
+	  	if(validarAux(cadena[i-1])){
+	  		  	if((int)cadena[i-1]==46){
+	 				punto++;
+				}
 	 	
 	 	if(punto<2){
 	 			regresa+=cadena[i-1];
@@ -121,15 +133,18 @@ string Compilador::numeros()
 		 }else{
 		 	regresa="";
 		 	break;
+		  } 
+		}else{
+		 	break;
 		 }		
 	}
 	
 	i--;
 	
-	//	cout<<(int)'.';
-	
+
+  /// Verificar punto al final Punto al final 	
 	if((int)regresa[i]==46){
-		cout<<"Punto al final";
+		//cout<<"Punto al final";
 		string aux="";
 		for(int k=0;k<regresa.size()-1;k++)
 		  aux+=regresa[k];
@@ -137,7 +152,6 @@ string Compilador::numeros()
 		  regresa=aux;
 	}
 	    
-	
 	 return regresa;	
 }
 
@@ -167,10 +181,10 @@ char Compilador::encontrarValor(){
 	
 	if(i<cadena.size()){
 			 a = cadena[i];
-	i++;
+	         i++;
+	        return a;
 	}
 
-    return a;
 }
 
 

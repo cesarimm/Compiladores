@@ -29,8 +29,9 @@ static vector<string> vSimbolos;
 			vSimbolos.push_back(")");
 			vSimbolos.push_back("{");	
 			vSimbolos.push_back("}");
-			vSimbolos.push_back("_");	
-			vSimbolos.push_back("'\'");
+			vSimbolos.push_back("_");
+			vSimbolos.push_back("@");	
+			///NOTA Se remplaza por el @ vSimbolos.push_back("'\'");
 		}
 
 
@@ -47,17 +48,20 @@ static vector<string> vSimbolos;
 			}else if(aux.length()>1){
 				//No se le concatenen letras a los numeros
 				if(a>47&&a<58){
+					cout<<"Es numero"<<endl;
 					flagNum=true;
 					return true;
 				}else{
 					
 					if(flagNum&&(a>64&&a<91||a>96&&a<123)){
+						cout<<"Es complicado"<<endl;
 						flagNum=false;
 						conErrores++;
 						cout<<aux<<endl;
 						return false;
 					}
 					
+					cout<<"Es palabra"<<endl;
 					flagNum=false;
 					return true;
 				}
@@ -69,5 +73,6 @@ static vector<string> vSimbolos;
 		   
 		}
 	}
+
 
 

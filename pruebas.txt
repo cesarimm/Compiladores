@@ -1,1 +1,1 @@
--entero  ident ! 
+-hola123=123()declara           ident() h
