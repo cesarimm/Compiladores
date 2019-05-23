@@ -1,5 +1,5 @@
 #include "Cadenas.cpp"
-#include "TSimbolos.cpp"
+//#include "TSimbolos.cpp"
 #include <bits/stdc++.h>
 
 //Desactrivar bandera a tiempo

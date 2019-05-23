@@ -2,7 +2,7 @@
 //Integrantes: María José Borjón Ibarra & César Iván Martínez Martínez
 //Fecha: 7 de Febrero de 2019
 #include <bits/stdc++.h>
-
+#include "TSimbolos.cpp"
 using namespace std;
 
 ///Notas: Verificar ident y num!!!
@@ -38,9 +38,9 @@ class Compilador{
 	    bool aux14();
 		bool aux15();
 	    bool instruccion();
-	    bool aux17();
+	    bool aux17(string);
 		bool aux18();
-		bool aux19();
+		bool aux19(string);
 		bool aux20();
 	    bool aux22();
 		bool aux26();
@@ -288,7 +288,7 @@ char Compilador::encontrarValor(){
 			  if(aux=="@"){
 			  	  if(aux2()){
 			  	  	  if(aux7()){
-			  	  	  	  if(generarCadena()=="!")){
+			  	  	  	  if(generarCadena()=="!"){
 			  	  	  	  	  return true;
 							}else{
 								return false;
@@ -315,7 +315,7 @@ char Compilador::encontrarValor(){
   	          	 } else return false;
   	              
   	              if(generarCadena()!=""){
-  	              	  if(genararCadena()=="="){
+  	              	  if(generarCadena()=="="){
   	              	  	 if(validarNumero(generarCadena())){
   	              	  	 	 if(aux8()){
   	              	  	 	 	 if(generarCadena()=="!"){
@@ -453,151 +453,353 @@ char Compilador::encontrarValor(){
 			}
 		}
 		  
+		  ////Dudas y más dudas
 	    bool Compilador::instruccion(){
-  	    ///	cout<<"Instruccion"<<endl;
-  	    	if(aux17()&& aux22() && aux26()  && aux26()) return true;
-  	    	else {  /// Follow de instruccion 
-  	    	string aux=generarCadena();
-  	    		
-  	          if (aux=="?" && aux=="BYE") return true;
-  	            	 
-			  else return false;}
+			  ///Tengo una duda
+			  string aux = generarCadena();
+			  if(aux17(aux)){
+			  	if(aux22()){
+			  		if(aux26()){
+			  			return true;
+					  }else{
+					  	return false;
+					  }
+				  }else{
+				  	return false;
+				  }
+			  }else{
+			  	if (aux=="?"||aux=="BYE") return true;	 
+			    else return false;
+			  }
 		  }
 		  
 		  
 		  
-	    bool Compilador::aux17(){
-	    	/// No olvidar que la comparacion a diferente de vacio es para el "nombre " que nosostros otorguemos a la variable = IDENT
-	    	if(generarCadena()=="go." && generarCadena()!="" && generarCadena()=="(" && aux18() && generarCadena()==")" && generarCadena()=="!" ) return true;
-	    	else {
-	    		string aux=generarCadena();
-  	    		
-	    		if(aux=="cuando" || aux=="Sii"  || aux==""  || aux=="Sii"  || aux=="?" || aux=="}"  || aux=="BYE" ) return true;
-				
-				else return false;
+	    bool Compilador::aux17(string aux){
+	    	/// No olvidar que la comparacion a diferente de vacio es para el "nombre " que nosostros otorguemos a la variable = IDENT		
+			if(aux=="go."){
+               if(generarCadena()!=""){
+               	 if(generarCadena()=="("){
+               	 	if(aux18()){
+               	 		 if(generarCadena()==")"){
+               	 		 	if(generarCadena()=="!"){
+               	 		 		return true;
+								 }else{
+								 	return false;
+								 }
+							 }else{
+							 	return false;
+							 }
+						}else{
+							return false;
+						}
+					}else{
+						return false;
+					}
+			   }else{
+			   	return false;
+			   }				
+			}else{
+			   if(aux=="cuando" || aux=="Sii"||aux=="?"||aux=="}"||aux=="BYE" ||aux!="") return true;
+				else return false;	
 			}
 		  }
 		  
 		  
 		bool Compilador::aux18(){
-  	    		if(aux19()&& aux20()) return true;
-  	    		else{/// Follow de aux18
-  	    		     
-  	    		     if (generarCadena()=="!") return true;
-  	    		     else return false;
-  	    			
+			
+			string aux = generarCadena();
+							  
+				  if(aux=="!"){
+				  	 return true;
+				  }else{
+				  	if(aux19(aux)){
+				  		if(aux20()){
+				  			return true;
+						  }else{
+						  	return false;
+						  }
+					  }else{
+					  	return false;
+					  }
 				  }
 		  }
 		  
-		bool Compilador::aux19(){
-				string aux = generarCadena();
-  	     if(aux=="NUM"||aux!="") return true;
+		bool Compilador::aux19(string aux){
+  	       if(aux!="") return true;
 	       else  return false;
-  }
+        }
 		  
-		bool Compilador::aux20(){
-			if (generarCadena()=="?"&& aux18() ) return true;
-  	       
-	    	else{/// Follow de aux20
-  	    		     
-  	      	    if (generarCadena()=="!") return true;
-  	    	    else return false;
-  	    			
-				  }
-		  }
-		  
-	    bool Compilador::aux22(){
-	    	if (generarCadena()=="cuando"&& aux19() && generarCadena()=="!" && condicion() && generarCadena()=="!" && instruccion() &&
-			generarCadena()=="{" && aux14() && generarCadena()=="}"  && generarCadena()=="!" ) return true;
-  	       
-	    	else{/// Follow de aux22
-  	    		 
+		bool Compilador::aux20(){			  
 				  string aux = generarCadena();
-  	              if(aux=="Sii"||aux!="" ||aux=="?" ||aux=="}" ||aux=="BYE") return true;
-  	              else return false;	
-  	    
-		  }
-		  }
+				  
+				  if(aux=="?"){
+				  	if(aux18()){
+				  		return true;
+					  }else{
+					  	return false;
+					  }
+				  }else{
+				  	 if(aux=="!") return true;
+				  	 else return false;
+				  }
+        }
+		  
+		  ////
+	    bool Compilador::aux22(){
+		  string aux = generarCadena();
+		  if(aux=="cuando"){
+		  	   if(aux19(generarCadena())){
+		  	   	   if(generarCadena()=="!"){
+		  	   	   	     if(condicion()){
+		  	   	   	     	  if( generarCadena()=="!"){
+		  	   	   	     	       if(instruccion() ){
+		  	   	   	     	           if(	generarCadena()=="{"){
+		  	                               if(aux14()){
+		  	                                   if(generarCadena()=="}"){
+		  	                                        if(generarCadena()=="!"){
+		  	                                             return true;
+													  }else{
+													  	return false;
+													  }
+												  }else{
+												  	return false;
+												  }
+											  }else{
+											  	return false;
+											  }
+										  }else{
+										  	return false;
+										  }
+								    }else{
+									  	return false;
+									  }
+							  }else{
+							  	return false;
+							  }
+						  }else{
+						  	return false;
+						  }
+						}else{
+							return false;
+						}
+				 }else{
+				 	return false;
+				 }
+		  }else{
+		  	      if(aux=="Sii"||aux!="" ||aux=="?" ||aux=="}" ||aux=="BYE") return true;
+  	              else return false;
+		  }  
+	  }
 		  
 		bool Compilador::aux26(){
-			
-  	    	if(generarCadena()=="Sii" && generarCadena()=="(" && condicion() && generarCadena()==")" && generarCadena()=="{" && aux14() 
-			  && generarCadena()=="}" && aux27() && aux28() && generarCadena()=="!" ) return true;
-  	    	
-			  else{ ///Este es el follow de aux26
-  	    		string aux = generarCadena();
-  	    		///Recordar que espacio vacio hace referencia a IDENT
-  	              
-				  if(aux!="" ||aux=="?" ||aux=="}" ||aux=="BYE") return true;
-  	              else return false;
-  	    		
-			  }
-		  }
+				  
+		string aux = generarCadena();
+			  
+			 if(aux=="Sii"){
+			 	if(generarCadena()=="(" ){
+			 	   	if(condicion()){
+			 		   if(generarCadena()==")"){
+			 		       if(generarCadena()=="{"){
+			 		          if(aux14() ){
+			 		              if(generarCadena()=="}"){
+			 		                 if(aux27()){
+			 		                     if(aux28()){
+			 		                         if(generarCadena()=="!" ){
+			 		                             return true;
+												 }else{
+												 	return false;
+												 }
+											 }else{
+											 	return false;
+											 }
+										 }else{
+										 	return false;
+										 }
+									 }else{
+									 	return false;
+									 }
+								 }else{
+								 	return false;
+								 }	
+							 }else{
+							 	return false;
+							 }	
+						 }else{
+						 	return false;
+						 }	
+					 }else{
+					 	return false;
+					 }	
+				 }else{
+				 	return false;
+				 }
+			 }else{
+			 	if(aux=="BYE" ||aux=="?" ||aux=="}" ||aux!="") return true;
+  	            else return false;
+			 }
+	   }
 		  
 		  
-		bool Compilador::aux27(){
-				if(generarCadena()=="Quiza" && generarCadena()=="(" && condicion() && generarCadena()==")" && generarCadena()=="{" && aux14() 
-			  && generarCadena()=="}" && aux27() && generarCadena()=="!" ) return true;
-  	    	
-			  else{ ///Este es el follow de aux27
-  	    		string aux = generarCadena();
-  	    		///Recordar que espacio vacio hace referencia a IDENT 
-				  if(aux!="Noo" ||aux=="!" ) return true;
+		bool Compilador::aux27(){  
+			  string aux = generarCadena();
+			  
+			  if(aux=="Quiza"){
+			  	    if(generarCadena()=="("){
+			  	    	 if(condicion()){
+			  	    	    if(generarCadena()==")"){
+			  	    	        if(generarCadena()=="{"){
+			  	    	            if(aux14()){
+			  	    	                if(generarCadena()=="}"){
+			  	    	                    if( aux27()){
+			  	    	                       if(generarCadena()=="!"){
+			  	    	                          return true;
+												  }else{
+												  	return false;
+												  }
+											  }else{
+											  	return false;
+											  }
+										  }else{
+										  	return false;
+										  }
+									  }else{
+									  	return false;
+									  }
+								  }else{
+								  	return false;
+								  }
+							  }else{
+							  	return false;
+							  }
+						  }else{
+						  	return false;
+						  }
+					  }else{
+					  	return false;
+					  }
+			  }else{
+			  	 if(aux!="Noo" ||aux=="!" ) return true;
   	              else return false;
-  	    		
 			  }
   	    	
 		  }
 		  
 		bool Compilador::aux28(){
-			if(generarCadena()=="Noo" && generarCadena()=="{" && aux14() && generarCadena()=="}")return true;
-			else { // Follow de aux28
-				if(generarCadena()=="!") return true;
+			string aux = generarCadena();
+			
+			if(aux=="Noo"){
+				if( generarCadena()=="{"){
+					if(aux14()){
+					   	if(generarCadena()=="}"){
+					       return true;
+							}else{
+								return false;
+							}
+						}else{
+							return false;
+						}
+				}else{
+					return false;
+				}
+			}else{
+				if(aux=="!") return true;
 				else return false ;
 			}
-			
-			
-  	    
-		  }
+	   }
 		  	
 		bool Compilador::aux30(){
-			///Recuerda: el espacio libre es el IDENT 
-  	    	if(generarCadena()=="" && generarCadena()=="=" && aux31() && generarCadena()=="!")return true;
-  	     else{ ///Este es el follow de aux30
-  	    		string aux = generarCadena();
-  	    		///Recordar que espacio vacio hace referencia a IDENT 
-				  if(aux!="?" ||aux=="BYE" ) return true;
-  	              else return false;
-  	    		
-			  }
+			  string aux = generarCadena(); 
+			 if(aux!="?" ||aux=="BYE" ) return true;
+			 else{
+			 	if(aux!=""){
+			 		if(generarCadena()=="=" ){
+			 		  if(aux31()){
+			 		      if(generarCadena()=="!"){
+			 		          return true;
+							 }else{
+							 	return false;
+							 }
+						 }else{
+						 	return false;
+						 }
+					 }else{
+					 	return false;
+					 }
+				 }else{
+				 	return false;
+				 }
+			 }
 		  }
 		  
 		bool Compilador::aux31(){
-  	    	if( aux19() && aux32()) return true;
-  	    	else return false;
+  	    	if(aux19(generarCadena())){
+  	    		if(aux32()){
+  	    			return true;
+				  }else{
+				  	return false;
+				  }
+			  }else{
+			  	return false;
+			  }
 		  }
 		  
+		  
 		bool Compilador::aux32(){
-			if (generarCadena()=="+" || generarCadena()=="-" || generarCadena()=="*" || generarCadena()=="/" ){
+			string aux = generarCadena();
+			if (aux=="+" || aux=="-" || aux=="*" || aux=="/" ){
 				if(aux31()) return true;
+				else return false;
 			} else{
 				if (generarCadena()=="!") return true;
-				else return false;	}
-	
+				else return false;	
+								}
 	 }
 	
 		  
 		bool Compilador::condicion(){
+			
 				if(generarCadena()=="(" && aux34() && generarCadena()==")" && generarCadena()=="!")return true;
 			    else return false;
-
+			    
+			    if(generarCadena()=="("){
+			    	if(aux34()){
+			    	  if(generarCadena()==")"){
+			    	        if(generarCadena()=="!"){
+			    	           return true;
+								}else{
+									return false;
+								}
+							}else{
+								return false;
+							}
+						}else{
+							return false;
+						}
+				}else{
+					return false;
+				}
 		  }
 		  	
 		bool Compilador::aux34(){
-			
-  	        if (aux19() && aux35() && aux19() &&  aux36()) return true ;
-  	        else return false;
-				/// No tiene un folow directo 				
+				/// No tiene un folow directo 
+				if(aux19(generarCadena())){
+			      if(aux35()){
+			    	if(aux19(generarCadena())){
+			    	  if(aux36()){
+			    	          return true;
+							}else{
+								return false;
+							}        
+						}else{
+							return false;
+						}      
+					}else{
+						return false;
+					}	          
+				}else{
+					return false;
+				}				
 		  }
 		  
 		  
@@ -612,9 +814,9 @@ char Compilador::encontrarValor(){
 			string aux = generarCadena();
   	    	if ((aux=="#" || aux=="&")&&aux34()){
 			 return true;
-			} else{
+			}else{
 				if (aux==")") return true;
 				else return false;
-					}
-		  }
+					        }
+		}
 
