@@ -50,6 +50,7 @@ static vector<string> vSimbolos;
 		else return false;	 
 	 }
 
+
     bool buscarSimbolo(string aux){
     	int a =(int)aux[0];
     	if(find(vSimbolos.begin(), vSimbolos.end(), aux)!=vSimbolos.end()){

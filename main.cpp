@@ -28,14 +28,14 @@ int main(){
 		 cout<<"Con errores: "<<conErrores<<endl;	 
 		//cout<<comp.i<<endl;	 
 	}while(comp.ref!=comp.i);*/
-	 	//comp.programa();
+	 	comp.programa();
 	 	
-	cout<<comp.generarCadena()<<endl;
-	cout<<comp.generarCadena()<<endl;
-	cout<<comp.generarCadena()<<endl;
-	cout<<comp.generarCadena()<<endl;
-    cout<<comp.generarCadena()<<endl;
-    cout<<comp.generarCadena()<<endl;
+	//cout<<comp.generarCadena()<<endl;
+	//cout<<comp.generarCadena()<<endl;
+	//cout<<comp.generarCadena()<<endl;
+	//cout<<comp.generarCadena()<<endl;
+    //cout<<comp.generarCadena()<<endl;
+    //cout<<comp.generarCadena()<<endl;
     //if(buscarSimbolo("hola"))
    // if(buscarSimbolo("123"))
     //if(buscarSimbolo(" "))

@@ -203,24 +203,34 @@ char Compilador::encontrarValor(){
 		  
 		bool Compilador::bloque(){   
 		     ///Faltaria follows
-  	          if(aux1()&&aux6()&&aux10()&&instruccion()) return true;
+  	          if(aux1()) return true;
   	           else return false;	
             }
 		  
 
 		  
-		bool Compilador::aux1(){
-			
-  	    	 if(generarCadena()=="-"&&aux2()&&aux3()&&generarCadena()=="!"){
-  	           return true;
-  	    	 }else{
-  	    	 	 //Es el follow de aux1
-  	    	    	string aux = generarCadena();
-  	    	 	   if(aux=="'\'"||aux=="declara."||aux=="go."||aux=="cuando"||
-					  aux=="Sii"||aux=="IDENT"||aux=="}"||aux=="?"||aux=="BYE") return true;
+		bool Compilador::aux1(){	  
+		      string aux = generarCadena();
+		       if(aux=="-"){
+		       	 if(aux2()){
+					if(aux3()){
+					    if(generarCadena()=="!"){
+					         return true;
+							}else{
+						 	return false;	
+							}
+						}else{
+					 	return false;	
+						}
+					}else{
+					 return false;	
+					}
+			   }else{
+			     	///Funcion para regresar a un estado anterior ///Utilizar una flag que guarde el estado anterior o simplemente el valor de i
+			   	  if(aux=="@"||aux=="declara."||aux=="go."||aux=="cuando"||
+					aux=="Sii"||aux=="}"||aux=="?"||aux=="BYE"||aux!="") return true;
 				   else return false;
-		      }
-	  
+			   }
 	    }
 	    
 		bool Compilador::aux2(){
@@ -231,38 +241,71 @@ char Compilador::encontrarValor(){
 		  }
 		  
 		bool Compilador::aux3(){
-			///Saber que es un identificador osea un nombre de una variable o de alguna funcion
-				string aux = generarCadena();
-  	    	   if(aux!=""&&aux4()) return true;    
-			   else return false;
+		       	///Saber que es un identificador osea un nombre de una variable o de alguna funcion
+			string aux = generarCadena();
+  	    		   
+			   if(aux!=""){
+			   	 if(aux4()){
+			   	 	 return true;
+				  }else{
+					return false;
+				  } 
+			   }else{
+			   	 return false;
+			   }
 		  }
 		  
 		  
 		bool Compilador::aux4(){
-			///Saber que es un numero
-  	         if(generarCadena()!=""&&(generarCadena()=="?")&&aux3()) return true;	    
-			else{
-			 //Follow de aux4
-				if(generarCadena()=="!")
-				  return true;
-				else return false;
+		
+			string aux = generarCadena();
+			
+			if(aux=="!"){
+				//Follow debemos regresar posicion, aqui podría ser el final por el ! que es equivalente al punto y coma.
+				return true;
+			}else{
+				 if(aux!=""){
+				 	if(generarCadena()=="?"){
+				 		if(aux3()){
+				 			return true;
+						 }else{
+						 	return false;
+						 }
+					 }else{
+					 	return false;
+					 }
+				 }else{
+				 	return false;
+				 }
 			}
+			 
 		  }
 		  
 		  
 		bool Compilador::aux6(){
-						
-			
-  	     if(generarCadena()=="'\'"&&aux2()&&aux7()&&generarCadena()=="!"){
-  	    	 return true;
-			   }    
-			else{
-				string aux=generarCadena();
-				if(aux=="declara."||aux=="go."||aux=="cuando"|| aux=="Sii"||
-				    aux=="IDENT"||aux=="}"||aux=="?"||aux=="BYE") return true;
-				   else return false;
-			}
-		  }
+							
+			string aux = generarCadena();
+			  if(aux=="@"){
+			  	  if(aux2()){
+			  	  	  if(aux7()){
+			  	  	  	  if(generarCadena()=="!")){
+			  	  	  	  	  return true;
+							}else{
+								return false;
+							}
+						  }else{
+						  	return false;
+						  }
+					}else{
+						return false;
+					}
+			  }else{
+			  	//Follow mantener posision
+			  		if(aux=="declara."||aux=="go."||aux=="cuando"|| aux=="Sii"||
+					  aux=="}"||aux=="?"||aux=="BYE"||aux!="") return true;
+				    else return false;
+			  }
+		}
 		  
 		bool Compilador::aux7(){
 			
@@ -271,73 +314,144 @@ char Compilador::encontrarValor(){
   	          	 	return true;	
   	          	 } else return false;
   	              
+  	              if(generarCadena()!=""){
+  	              	  if(genararCadena()=="="){
+  	              	  	 if(validarNumero(generarCadena())){
+  	              	  	 	 if(aux8()){
+  	              	  	 	 	 if(generarCadena()=="!"){
+  	              	  	 	 	 	     return true;
+										}else{
+										 	return false;
+										}
+								}else{
+									return false;
+								}
+							}else{
+								return false;
+							}
+						  }else{
+						  	return false;
+						  }
+					}else{
+						return false;
+					}
+				    
 		}
 				
 		  
 		bool Compilador::aux8(){
-			 if(generarCadena()=="?"&& aux7()){
-			 	return true;
+			
+		string aux = generarCadena();
+			 
+			 if(aux=="?"){
+			 	if(aux7())return true;
+			 	else return false;
 			 }else{
-			  if(generarCadena()=="!"){
-			  return true;  
-			  }
-			  else return false;
-			
-			 }
-			
-  	      	
-		  }
+			 	if(aux=="!") return true;
+			 	else return false;
+			 }	
+		}
 		  
-		bool Compilador::aux10(){
-              if(generarCadena()=="declara."&& aux2()&& generarCadena()!="" && generarCadena()=="(" 
-			         && aux12() && generarCadena()==")" && generarCadena()=="{" && aux14() && generarCadena()=="}" && aux10() && generarCadena()=="!"){
-  	    	         return true;}
-  	    	else {
-  	    		string aux=generarCadena();
-  	    		
-  	    		/// No olvidar que IDENT se refiere a una variable( cualquier nombre que el usuario ponga)
-				if(aux=="go."||aux=="cuando"|| aux=="Sii"||
-				    aux=="IDENT"||aux=="}"||aux=="?"||aux=="BYE"||aux=="!") return true;
+		bool Compilador::aux10(){	  
+			  string aux = generarCadena();
+			  
+			  if(aux=="declara."){
+			  	if(aux2()){
+			  		if(generarCadena()!=""){
+			  			if(generarCadena()=="(" ){
+			  				if(aux12()){
+			  				   	if(generarCadena()==")" ){
+			  				    	if(generarCadena()=="{"){
+			  				           if( aux14()){
+			  				              if(generarCadena()=="}"){
+			  				                if(aux10()){
+			  				                     if(generarCadena()=="!"){
+			  				                            return true;
+													  }else{
+													  	return false;
+													}
+												  }else{
+												  	return false;
+												}
+											  }else{
+											  	return false;
+											}
+										  }else{
+										  	return false;
+										}
+									  }else{
+									  	return false;
+									}
+								  }else{
+								  	return false;
+								}
+							  }else{
+							  	return false;
+							  }
+						  }else{
+						  	return false;
+						  }
+					  }else{
+					  	 return false;
+					  }
+				  }else{
+				  	return false;
+				  }
+			  }else{
+			  	 	if(aux=="go."||aux=="cuando"|| aux=="Sii"||
+				    aux=="}"||aux=="?"||aux=="BYE"||aux=="!"||aux!="") return true;
 				   else return false;
-  	    		
-  	    		
 			  }
 		  }
 		  
 		bool Compilador::aux12(){
-			
-			if(generarCadena()!=""&& aux13() ) return true ;
-			
-  	    	else { return false;
-			  }
-		  }
+			  if(generarCadena()!=""){
+			  	if(aux13()) return true;
+			  	else return false;
+			  }else{
+			  	return false;
+			  }	  
+		}
 		  
 		bool Compilador::aux13(){
-			if(generarCadena()=="?"&& aux12()){
-				return true;
-		}else {  /// Esto es parte de los follow de aux 13
-			if (generarCadena()=="}") return true;
-			else return false;
-		  }
-		  }
+			  string aux = generarCadena();
+			  if(aux=="?"){
+			  	if(aux12()){
+			  		return true;
+				  }else{
+				  	return false;
+				  }
+			  }else{
+			  		if(aux=="}") return true;
+					else return false;
+			  }
+		}
 		  
 	    bool Compilador::aux14(){
-	    	if(instruccion()&& aux15()) return true;
-  	    	else return false;
-		  }
+	    	if(instruccion()){
+	    		if(aux15()){
+	    			return true;
+				}else{
+					return false;
+				}
+			}else{
+				return false;
+			}
+	   }
 		  
-		bool Compilador::aux15(){
-			if(generarCadena()=="?"&& aux14()){
-				return true;
-			}
-			else 
-			{
-				if(generarCadena()==")") return true;
-				 
+		bool Compilador::aux15(){		
+			string aux = generarCadena();
+			if(aux=="?"){
+				if(aux14()){
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				if(aux==")") return true;
 				 else 	return false;
-
 			}
-		  }
+		}
 		  
 	    bool Compilador::instruccion(){
   	    ///	cout<<"Instruccion"<<endl;
