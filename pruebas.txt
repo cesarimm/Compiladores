@@ -1,1 +1,1 @@
--hola123=123()declara           ident() h
+-hola123=        123. abc()declara           ident() h

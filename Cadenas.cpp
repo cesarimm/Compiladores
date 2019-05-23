@@ -131,6 +131,7 @@ string Compilador::numeros(){
 	 			regresa+=cadena[i-1];
 	            aux = (int) encontrarValor();
 		 }else{
+		 	while(aux!=32) aux = (int) encontrarValor();
 		 	regresa="";
 		 	break;
 		  } 
@@ -141,17 +142,16 @@ string Compilador::numeros(){
 	
 	i--;
 	
-
+     ///cout<<"Longitud: "<<regresa.size()<<endl;
   /// Verificar punto al final Punto al final 	
-	if((int)regresa[i]==46){
-		//cout<<"Punto al final";
+	if((int)regresa[regresa.size()-1]==46){
+	//	cout<<"Punto al final";
 		string aux="";
 		for(int k=0;k<regresa.size()-1;k++)
-		  aux+=regresa[k];
-		  
+		  aux+=regresa[k];	  
 		  regresa=aux;
 	}
-	    
+		    
 	 return regresa;	
 }
 

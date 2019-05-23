@@ -35,6 +35,21 @@ static vector<string> vSimbolos;
 		}
 
 
+    		
+	bool validarNumero(string aux){
+			int error=0;
+			char a;
+			 for(int i=0;i<aux.size();i++){
+			 	a=aux[i];
+			 	if(!((int)a>45&&(int)a<58))
+			         error++;
+			    if((int)a==47)
+			     error++;
+			 }
+		if(error==0)return true;
+		else return false;	 
+	 }
+
     bool buscarSimbolo(string aux){
     	int a =(int)aux[0];
     	if(find(vSimbolos.begin(), vSimbolos.end(), aux)!=vSimbolos.end()){
@@ -43,36 +58,35 @@ static vector<string> vSimbolos;
     	  return true;
 		}else{
 		//	cout<<"NOOO Encontrado"<<endl;
-		    if(aux=="sp"){
-			 return true;
-			}else if(aux.length()>1){
+		       if(aux.length()>1){
 				//No se le concatenen letras a los numeros
 				if(a>47&&a<58){
-					cout<<"Es numero"<<endl;
-					flagNum=true;
-					return true;
+				     ///Si es un número
+				    return validarNumero(aux);
 				}else{
-					
-					if(flagNum&&(a>64&&a<91||a>96&&a<123)){
-						cout<<"Es complicado"<<endl;
-						flagNum=false;
-						conErrores++;
-						cout<<aux<<endl;
-						return false;
-					}
-					
-					cout<<"Es palabra"<<endl;
-					flagNum=false;
+					 //Si es una palabra
 					return true;
 				}
 			}else{
-				//cout<<"Error de compilacion"<<endl;
 				conErrores++;
 				return false;
 			}
 		   
 		}
 	}
+	
+	
+
+	 
+	 
+/*	int main(){
+		if(buscarSimbolo("abcd1234"))
+		 cout<<"Numero valido"<<endl;
+		 else cout<<"Numero invalido"<<endl;
+		 
+		return 0;
+	} */
+   
 
 
 

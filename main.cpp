@@ -35,6 +35,7 @@ int main(){
 	cout<<comp.generarCadena()<<endl;
 	cout<<comp.generarCadena()<<endl;
     cout<<comp.generarCadena()<<endl;
+    cout<<comp.generarCadena()<<endl;
     //if(buscarSimbolo("hola"))
    // if(buscarSimbolo("123"))
     //if(buscarSimbolo(" "))
