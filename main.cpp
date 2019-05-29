@@ -28,7 +28,7 @@ int main(){
 		 cout<<"Con errores: "<<conErrores<<endl;	 
 		//cout<<comp.i<<endl;	 
 	}while(comp.ref!=comp.i);*/
-	 	comp.programa();
+	 //	comp.programa();
 	 	
 	//cout<<comp.generarCadena()<<endl;
 	//cout<<comp.generarCadena()<<endl;
@@ -38,8 +38,8 @@ int main(){
     //cout<<comp.generarCadena()<<endl;
     //if(buscarSimbolo("hola"))
    // if(buscarSimbolo("123"))
-    //if(buscarSimbolo(" "))
-      // cout<<"Si sirve"<<endl;
+    if(buscarSimbolo("123"))
+      cout<<"Si sirve"<<endl;
 	
 	return 0;
 }
