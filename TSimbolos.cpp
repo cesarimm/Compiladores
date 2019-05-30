@@ -4,7 +4,6 @@ bool flagNum=false;
 int conErrores=0;
 using namespace std;
 static vector<string> vSimbolos;
-//static string vSimbolo[24] = {"simbolo", "cadena", "entero", "void", "cuando", "sii", "quiza", "noo", "go.", "declara.", "?", "!","#","&","+","-","*","/",")","(","}","{","_","'\'"};
 		void llenar(){	
 			vSimbolos.push_back("simbolo");	
 			vSimbolos.push_back("cadena");	
@@ -76,18 +75,6 @@ static vector<string> vSimbolos;
 		}
 	}
 	
-	
-
-	 
-	 
-/*	int main(){
-		if(buscarSimbolo("abcd1234"))
-		 cout<<"Numero valido"<<endl;
-		 else cout<<"Numero invalido"<<endl;
-		 
-		return 0;
-	} */
-   
 
 
 
