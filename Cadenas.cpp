@@ -38,7 +38,7 @@ class Compilador{
 	    bool aux14();
 		bool aux15();
 	    bool instruccion();
-	    bool aux17(string);/// Nota ¿porqué  tiene un parametro STRING ?
+	    bool aux17();/// Nota ¿porqué  tiene un parametro STRING ?
 		bool aux18();
 		bool aux19(string);/// Nota ¿porqué  tiene un parametro STRING ?
 		bool aux20();
@@ -510,7 +510,9 @@ char Compilador::encontrarValor(){
 			  string aux = generarCadena();
 			  cout<<"F13::"<<aux<<endl;
 			  if(aux=="?"){
+			  	cout<<"a13 1"<<endl;
 			  	if(aux12()){
+			  		cout<<"a13 2"<<endl;
 			  		return true;
 				  }else{
 				  	return false;
@@ -518,7 +520,9 @@ char Compilador::encontrarValor(){
 			  }else{
 			  		if(aux==")"){
 			  			i=auxi;
+			  			cout<<"a13 follow"<<endl;
 			  			return true;
+			  			
 					  } 
 					else return false;
 			  }
@@ -544,7 +548,7 @@ char Compilador::encontrarValor(){
 		bool Compilador::aux15(){
 		   int auxi=i;		
 			string aux = generarCadena();
-			cout<<"F15::"<<aux<<" "<<generarCadena()<<" "<<generarCadena()<<" "<<generarCadena()<<endl;
+			cout<<"F15::"<<aux<<endl;//" "<<generarCadena()<<" "<<generarCadena()<<" "<<generarCadena()<<endl;
 			if(aux=="?"){
 				cout<<"a15 1"<<endl;
 				if(aux14()){
@@ -555,7 +559,7 @@ char Compilador::encontrarValor(){
 				}
 			}else{
 				if(aux==")") {
-						cout<<"a15 follow"<<endl;
+				    cout<<"a15 follow"<<endl;
 					i= auxi;
 					return true;
 				}
@@ -567,12 +571,16 @@ char Compilador::encontrarValor(){
 		  
 		  /// La funcion instrucción ya tiene agregado auxi
    bool Compilador::instruccion(){
-		  	string aux = generarCadena();
-		  	int auxi=i;
-		  	if(aux17(aux)) {
+   	        int auxi=i;
+		  	string aux = generarCadena(); 	
+		  	if(aux17()) {
+		  		 cout<<"ins 1"<<endl;
 		  		if (aux22()){
+		  			 cout<<"ins 2"<<endl;
 		  			if(aux26()){
+		  				 cout<<"ins 3"<<endl;
 		  				if(aux30()){
+		  					 cout<<"ins 4"<<endl;
 		  					return true;
 						  }
 						else return false;
@@ -585,6 +593,7 @@ char Compilador::encontrarValor(){
 			  else{
 			  	
 			   if (aux=="?"||aux=="}"||aux=="BYE") {
+			   	 cout<<"ins follow"<<endl;
 			   	i=auxi;
 			   	return true; }
 			  
@@ -594,17 +603,23 @@ char Compilador::encontrarValor(){
 		 
 	
 	///La funcion aux17 ya tiene auxi
-	    bool Compilador::aux17(string aux){
+	    bool Compilador::aux17(){
 	    	/// No olvidar que la comparacion a diferente de vacio es para el "nombre " que nosostros otorguemos a la variable = IDENT		
 		    
 		    int auxi=i;
-		    
+		    string aux = generarCadena(); 	
 			if(aux=="go."){
+				  cout<<"a17 1"<<endl;
                if(generarCadena()!=""){
+               	 cout<<"a17 2"<<endl;
                	 if(generarCadena()=="("){
+               	 	cout<<"a17 3"<<endl;
                	 	if(aux18()){
+               	 		cout<<"a17 4"<<endl;
                	 		 if(generarCadena()==")"){
+               	 		 	cout<<"a17 5"<<endl;
                	 		 	if(generarCadena()=="!"){
+               	 		 		cout<<"a17 6"<<endl;
                	 		 		return true;
 								 }else{
 								 	return false;
@@ -622,7 +637,9 @@ char Compilador::encontrarValor(){
 			   	return false;
 			   }				
 			}else{
+				
 			   if(aux=="cuando" || aux=="Sii"||aux=="?"||aux=="}"||aux=="BYE" ||aux!=""){
+			   	cout<<"a17 follow"<<endl;
 			    i=auxi;	
 			   	return true;
 			   }  else return false;	
@@ -635,10 +652,13 @@ char Compilador::encontrarValor(){
 			string aux = generarCadena();
 							  
 				  if(aux=="!"){
+				  	cout<<"a18 follow"<<endl;
 				  	 return true;
 				  }else{
 				  	if(aux19(aux)){
+				  		cout<<"a18 1"<<endl;
 				  		if(aux20()){
+				      		cout<<"a18 2"<<endl;
 				  			return true;
 						  }else{
 						  	return false;
@@ -652,7 +672,12 @@ char Compilador::encontrarValor(){
 		
 		///Aux 19 no utiliza auxi, ya que no tiene follows  
 		bool Compilador::aux19(string aux){
-  	       if(aux!="") return true;
+  	       if(aux!=""){
+  	       	cout<<"a19 "<<endl;
+
+			  return true;
+			 }
+ 	  		
 	       else  return false;
         }
 		
@@ -661,13 +686,19 @@ char Compilador::encontrarValor(){
 				  string aux = generarCadena();
 				  
 				  if(aux=="?"){
+				  	cout<<"a20 1"<<endl;
 				  	if(aux18()){
+				  		cout<<"a20 2"<<endl;
+	
 				  		return true;
 					  }else{
 					  	return false;
 					  }
 				  }else{
-				  	 if(aux=="!") return true;
+				  	 if(aux=="!"){
+					   
+				  	 cout<<"a20 follow"<<endl;
+					    return true;}
 				  	 else return false;
 				  }
         }
@@ -677,15 +708,25 @@ char Compilador::encontrarValor(){
 		  string aux = generarCadena();
 		  int auxi=i;
 		  if(aux=="cuando"){
+		  	cout<<"a21 1"<<endl;
 		  	   if(aux19(generarCadena())){
+		  	   	  cout<<"a21 2"<<endl;
 		  	   	   if(generarCadena()=="!"){
+		  	   	   	cout<<"a21 3"<<endl;
 		  	   	   	     if(condicion()){
+		  	   	   	     	cout<<"a21 4"<<endl;
 		  	   	   	     	  if( generarCadena()=="!"){
+		  	   	   	     	  	cout<<"a21 5"<<endl;
 		  	   	   	     	       if(instruccion() ){
+		  	   	   	     	       	cout<<"a21 6"<<endl;
 		  	   	   	     	           if(	generarCadena()=="{"){
+		  	   	   	     	           	cout<<"a21 7"<<endl;
 		  	                               if(aux14()){
+		  	                               	cout<<"a21 8"<<endl;
 		  	                                   if(generarCadena()=="}"){
+		  	                                   	cout<<"a21 9"<<endl;
 		  	                                        if(generarCadena()=="!"){
+		  	                                        	cout<<"a21 10"<<endl;
 		  	                                             return true;
 													  }else{
 													  	return false;
@@ -716,6 +757,7 @@ char Compilador::encontrarValor(){
 				 }
 		  }else{
 		  	      if(aux=="Sii"||aux!="" ||aux=="?" ||aux=="}" ||aux=="BYE") {
+		  	      	cout<<"a21 follow"<<endl;
                     i= auxi;
 		  	      	return true;
 					}
@@ -726,20 +768,29 @@ char Compilador::encontrarValor(){
 		  
 		  /// Aux26 ya tiene el auxi
 		bool Compilador::aux26(){
-				  
-		string aux = generarCadena();
-	    int auxi=i;
-		 		  
+			cout<<"Siiiii"<<endl;
+		int auxi=i;		  
+		string aux = generarCadena();		  
 			 if(aux=="Sii"){
+			 	cout<<"a26 1"<<endl;
 			 	if(generarCadena()=="(" ){
+			 		cout<<"a26 2"<<endl;
 			 	   	if(condicion()){
+			 	   		cout<<"a26 3"<<endl;
 			 		   if(generarCadena()==")"){
+			 		   	cout<<"a26 4"<<endl;
 			 		       if(generarCadena()=="{"){
+			 		       	cout<<"a26 5"<<endl;
 			 		          if(aux14() ){
+			 		          	cout<<"a26 6"<<endl;
 			 		              if(generarCadena()=="}"){
+			 		              	cout<<"a26 7"<<endl;
 			 		                 if(aux27()){
+			 		                 	cout<<"a26 8"<<endl;
 			 		                     if(aux28()){
+			 		                     	cout<<"a26 9"<<endl;
 			 		                         if(generarCadena()=="!" ){
+			 		                         	cout<<"a26 10"<<endl;
 			 		                             return true;
 												 }else{
 												 	return false;
@@ -770,6 +821,7 @@ char Compilador::encontrarValor(){
 				 }
 			 }else{
 			 	if(aux=="BYE" ||aux=="?" ||aux=="}" ||aux!="") {
+			 		cout<<"a26 follow"<<endl;
 			    i=auxi;
 			 	return true;	
 				 }
@@ -782,14 +834,31 @@ char Compilador::encontrarValor(){
 			  string aux = generarCadena();
 			  int auxi=i;
 			  if(aux=="Quiza"){
+			  	cout<<"a27 1"<<endl;
 			  	    if(generarCadena()=="("){
+			  	   	  	cout<<"a27 2"<<endl;
+
 			  	    	 if(condicion()){
+			  	   	  	cout<<"a27 3"<<endl;
+
 			  	    	    if(generarCadena()==")"){
+			  	    	    	  	cout<<"a27 4"<<endl;
+
 			  	    	        if(generarCadena()=="{"){
+			  	    	        	 	  	cout<<"a27 5"<<endl;
+
 			  	    	            if(aux14()){
+			  	    	            	 	cout<<"a27 6"<<endl;
+
 			  	    	                if(generarCadena()=="}"){
+			  	    	              	   	  	cout<<"a27 7"<<endl;
+
 			  	    	                    if( aux27()){
+			  	    	                  	   	  	cout<<"a27 8"<<endl;
+
 			  	    	                       if(generarCadena()=="!"){
+			  	    	                       			 	cout<<"a27 9"<<endl;
+
 			  	    	                          return true;
 												  }else{
 												  	return false;
@@ -817,6 +886,8 @@ char Compilador::encontrarValor(){
 					  }
 			  }else{
 			  	 if(aux=="Noo" ||aux=="!" ) {
+		  	   	  	cout<<"a27 follow"<<endl;
+
 			  	 	i=auxi;
 			  	 	return true;
 				   }
@@ -831,9 +902,16 @@ char Compilador::encontrarValor(){
 			string aux = generarCadena();
 			
 			if(aux=="Noo"){
+		  	   	  	cout<<"a28 1"<<endl;
+
 				if( generarCadena()=="{"){
+			  	   	  	cout<<"a28 2"<<endl;
+
 					if(aux14()){
+		       	   	  	cout<<"a28 3"<<endl;
+
 					   	if(generarCadena()=="}"){
+					   	   cout<<"a28 4"<<endl;	
 					       return true;
 							}else{
 								return false;
@@ -845,7 +923,9 @@ char Compilador::encontrarValor(){
 					return false;
 				}
 			}else{
-				if(aux=="!") return true;
+				if(aux=="!") 
+				{ cout<<"a28 follow"<<endl;return true;
+				}
 				else return false ;
 			}
 	   }
@@ -853,12 +933,19 @@ char Compilador::encontrarValor(){
 	///Aqui no estoy segura de si lleva auxi debido a que el follow está primero	  	
 		bool Compilador::aux30(){
 			  string aux = generarCadena(); 
-			 if(aux!="?" ||aux=="BYE" ) return true;
+			 if(aux!="?" ||aux=="BYE" ){
+			 	cout<<"a30 follow"<<endl;
+				 return true;
+			 }
 			 else{
 			 	if(aux!=""){
+			 		cout<<"a30 1"<<endl;
 			 		if(generarCadena()=="=" ){
+			 			cout<<"a30 2"<<endl;
 			 		  if(aux31()){
+			 		  	cout<<"a30 3"<<endl;
 			 		      if(generarCadena()=="!"){
+			 		      	cout<<"a30 4"<<endl;
 			 		          return true;
 							 }else{
 							 	return false;
@@ -879,13 +966,19 @@ char Compilador::encontrarValor(){
 	///Aux31 no lleva auxi	  
 		bool Compilador::aux31(){
   	    	if(aux19(generarCadena())){
+  	    		cout<<"a31 1"<<endl;
   	    		if(aux32()){
+  	    			cout<<"a31 2"<<endl;
   	    			return true;
 				  }else{
 				  	return false;
 				  }
 			  }else{
-			  	if(generarCadena()=="!" ) return true;
+			  	if(generarCadena()=="!" ) 
+				  {
+				  cout<<"a31 follow"<<endl;
+				  return true;
+				  }
   	              else return false;
 			  }
 		  }
@@ -896,10 +989,18 @@ char Compilador::encontrarValor(){
 		bool Compilador::aux32(){
 			string aux = generarCadena();
 			if (aux=="+" || aux=="-" || aux=="*" || aux=="/" ){
-				if(aux31()) return true;
+				  cout<<"a32 1"<<endl;
+				
+				if(aux31()) {
+					cout<<"a32 2"<<endl;
+					return true;
+				}
 				else return false;
 			} else{
-				if (generarCadena()=="!") return true;
+				if (generarCadena()=="!") {
+						cout<<"a32 follow"<<endl;
+					return true;
+				}
 				else return false;	
 								}
 	 }
@@ -913,9 +1014,16 @@ char Compilador::encontrarValor(){
 			    else return false;*/
 			    
 			    if(generarCadena()=="("){
+			    	cout<<"cond 1"<<endl;
 			    	if(aux34()){
+			  	    	cout<<"cond 2"<<endl;
+
 			    	  if(generarCadena()==")"){
+			    	  		cout<<"cond 3"<<endl;
+
 			    	        if(generarCadena()=="!"){
+			    	     	    	cout<<"cond 4"<<endl;
+
 			    	           return true;
 								}else{
 									return false;
@@ -927,7 +1035,11 @@ char Compilador::encontrarValor(){
 							return false;
 						}
 				}else{
-                if (generarCadena()=="!") return true;
+                if (generarCadena()=="!") 
+				{
+		    	cout<<"cond follow"<<endl;
+                 return true;
+				}
 				else return false;		
 							}
 		  }
@@ -938,9 +1050,14 @@ char Compilador::encontrarValor(){
 				/// No tiene un folow directo 
 				int auxi=i;
 				if(aux19(generarCadena())){
+				cout<<"a34 1"<<endl;
+
 			      if(aux35()){
+			      	cout<<"a34 2"<<endl;
 			    	if(aux19(generarCadena())){
+			    		cout<<"a34 3"<<endl;
 			    	  if(aux36()){
+			    	  	cout<<"a34 4"<<endl;
 			    	          return true;
 							}else{
 								return false;
@@ -953,7 +1070,9 @@ char Compilador::encontrarValor(){
 					}	          
 				}else{
                 if (generarCadena()==")") {
+                	
                 i=auxi;
+                cout<<"a34 follow"<<endl;
                 return true;	
 				}
 				else return false;					}				
@@ -961,9 +1080,23 @@ char Compilador::encontrarValor(){
 		  
 		 	///La funcion aux35 no requiere auxi	  
 		bool Compilador::aux35(){
-		   	string aux = generarCadena();
-				  if(aux!="!=" ||aux=="<" || aux!=">" ||aux=="<=" || aux!="=>" ||aux=="=="  ) return true;
-  	              else return false;
+		   	 string aux = generarCadena();
+		   	      if(aux=="<"|| aux!=">"){
+		   	      	
+		   	      	  cout<<"a35 1"<<endl;
+		   	      	  return true;
+					}
+				  else{
+				  	 	//int auxi = i;
+		   	            string aux2 = generarCadena();
+		   	            string aux3 = aux+aux2;
+				  	  if(aux3!="!=" ||aux3=="<=" || aux3!="=>" ||aux3=="=="  ) {
+				  	  	 cout<<"a35 2"<<endl;
+				  		 return true;
+				      }
+				      // Nota i = auxi;
+  	                 else{return false;}
+				  }
 		  }
 		  
 		  
@@ -973,9 +1106,11 @@ char Compilador::encontrarValor(){
 			int auxi=1;
 			
   	    	if ((aux=="#" || aux=="&")&&aux34()){
+  	    		cout<<"a36 1"<<endl;
 			 return true;
 			}else{
 				if (aux==")"){
+					cout<<"a36 2"<<endl;
 					i=auxi;
 					return true;
 				} 
