@@ -48,8 +48,7 @@ int main(){
         cout<<comp.generarCadena()<<endl;
          cout<<comp.generarCadena()<<endl;
           cout<<comp.generarCadena()<<endl;*/
-          
-           
+                
      comp.programa();	
 	return 0;
 }
