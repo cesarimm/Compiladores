@@ -38,15 +38,15 @@ class Compilador{
 	    bool aux14();
 		bool aux15();
 	    bool instruccion();
-	    bool aux17();/// Nota ¿porqué  tiene un parametro STRING ?
+	    bool aux17(string a);/// Nota ¿porqué  tiene un parametro STRING ?
 		bool aux18();
-		bool aux19(string);/// Nota ¿porqué  tiene un parametro STRING ?
+		bool aux19(string aux);/// Nota ¿porqué  tiene un parametro STRING ?
 		bool aux20();
-	    bool aux22();
-		bool aux26();
+	    bool aux22(string a);
+		bool aux26(string a);
 		bool aux27();
 		bool aux28();	
-		bool aux30();
+		bool aux30(string a);
 		bool aux31();
 		bool aux32();
 		bool condicion();	
@@ -195,7 +195,9 @@ char Compilador::encontrarValor(){
   	    	  	//Bye
   	    	  	printf("Todo bien");
 				}else{
-			      //Error
+			      if(generarCadena()=="BYE")
+			        printf("Todo bien");
+			        else
 			      printf("Todo mal");
 				}	  
 		  }
@@ -371,7 +373,7 @@ char Compilador::encontrarValor(){
   	          	 	return true;	
   	          	 } else return false; */
   	              string aux77 = generarCadena();
-  	              cout<<"Aux77::"<<aux77<<endl;
+  	              cout<<"Aux7::"<<aux77<<endl;
   	              if(aux77!=""){
   	              	cout<<"a7 1"<<endl;
   	              	  if(generarCadena()=="="){
@@ -436,9 +438,9 @@ char Compilador::encontrarValor(){
 			  				if(aux12()){
 			  					cout<<"a10 5"<<endl;
 			  				   	if(generarCadena()==")" ){
-			  				   		cout<<"a10 6"<<endl;
+			  				   		cout<<" a10 6"<<endl;
 			  				    	if(generarCadena()=="{"){
-			  				    		cout<<"a10 7"<<endl;
+			  				    		cout<<"  a10 7"<<endl;
 			  				           if( aux14()){
 			  				           	  cout<<"a10 8"<<endl;
 			  				              if(generarCadena()=="}"){
@@ -480,7 +482,7 @@ char Compilador::encontrarValor(){
 				  }
 			  }else{
 			  	 	if(aux=="go."||aux=="cuando"|| aux=="Sii"||
-				    aux=="}"||aux=="!"||aux!="") {
+				    aux=="}"||aux=="!"||aux=="BYE"||aux!="") {
 				    i=auxi;
 					return true;
 				}
@@ -530,7 +532,7 @@ char Compilador::encontrarValor(){
 	
 	///No es necesario el uso de auxi pues no tiene FOLLOWS 	  
 	    bool Compilador::aux14(){
-	    	if(instruccion()){
+	    	if(instruccion()) {
 	    		cout<<"a14 i"<<endl;
 	    		if(aux15()){
 	    		cout<<"a14 2"<<endl;	
@@ -548,7 +550,9 @@ char Compilador::encontrarValor(){
 		bool Compilador::aux15(){
 		   int auxi=i;		
 			string aux = generarCadena();
-			cout<<"F15::"<<aux<<endl;//" "<<generarCadena()<<" "<<generarCadena()<<" "<<generarCadena()<<endl;
+			
+			cout<<"F15::"<<aux<<endl;
+		
 			if(aux=="?"){
 				cout<<"a15 1"<<endl;
 				if(aux14()){
@@ -558,7 +562,8 @@ char Compilador::encontrarValor(){
 					return false;
 				}
 			}else{
-				if(aux==")") {
+				cout<<"Prueba"<<endl;
+				if(aux=="}"||aux=="BYE") {
 				    cout<<"a15 follow"<<endl;
 					i= auxi;
 					return true;
@@ -571,15 +576,17 @@ char Compilador::encontrarValor(){
 		  
 		  /// La funcion instrucción ya tiene agregado auxi
    bool Compilador::instruccion(){
+   	/// en las intrucciones debe de llevar el parametro de ( la funcion a evaluar en lugar de generarla en cada funcion de intruccion 
    	        int auxi=i;
-		  	string aux = generarCadena(); 	
-		  	if(aux17()) {
+		  	string aux = generarCadena(); 	  ///Este aux es el que se usara en las diferentes funciones ...
+		  	cout<<aux+" es la instrucción"<<endl;
+		  	if(aux17(aux)) {
 		  		 cout<<"ins 1"<<endl;
-		  		if (aux22()){
+		  		if (aux22(aux)){
 		  			 cout<<"ins 2"<<endl;
-		  			if(aux26()){
+		  			if(aux26(aux)){
 		  				 cout<<"ins 3"<<endl;
-		  				if(aux30()){
+		  				if(aux30(aux)){
 		  					 cout<<"ins 4"<<endl;
 		  					return true;
 						  }
@@ -595,6 +602,7 @@ char Compilador::encontrarValor(){
 			   if (aux=="?"||aux=="}"||aux=="BYE") {
 			   	 cout<<"ins follow"<<endl;
 			   	i=auxi;
+			   	
 			   	return true; }
 			  
 			  else return false;
@@ -603,20 +611,22 @@ char Compilador::encontrarValor(){
 		 
 	
 	///La funcion aux17 ya tiene auxi
-	    bool Compilador::aux17(){
+	    bool Compilador::aux17(string aux){
 	    	/// No olvidar que la comparacion a diferente de vacio es para el "nombre " que nosostros otorguemos a la variable = IDENT		
 		    
 		    int auxi=i;
-		    string aux = generarCadena(); 	
+		   // string aux = generarCadena(); 
+	
 			if(aux=="go."){
 				  cout<<"a17 1"<<endl;
                if(generarCadena()!=""){
                	 cout<<"a17 2"<<endl;
                	 if(generarCadena()=="("){
                	 	cout<<"a17 3"<<endl;
-               	 	if(aux18()){
-               	 		cout<<"a17 4"<<endl;
-               	 		 if(generarCadena()==")"){
+               	 	if(aux18()){		
+               	 		 string hola = generarCadena();
+               	 		 cout<<"a17 4 "<<hola<<endl;
+               	 		 if(hola==")"){
                	 		 	cout<<"a17 5"<<endl;
                	 		 	if(generarCadena()=="!"){
                	 		 		cout<<"a17 6"<<endl;
@@ -649,10 +659,12 @@ char Compilador::encontrarValor(){
    ///Aux18 no tiene auxi por que solo tiene ! como follow
 		bool Compilador::aux18(){
 			
+			int auxi=i;
 			string aux = generarCadena();
 							  
-				  if(aux=="!"){
+				  if(aux==")"||aux=="!"){
 				  	cout<<"a18 follow"<<endl;
+				  	i=auxi;
 				  	 return true;
 				  }else{
 				  	if(aux19(aux)){
@@ -672,12 +684,11 @@ char Compilador::encontrarValor(){
 		
 		///Aux 19 no utiliza auxi, ya que no tiene follows  
 		bool Compilador::aux19(string aux){
+			cout<<"a19 checa "+aux<<endl;
   	       if(aux!=""){
-  	       	cout<<"a19 "<<endl;
-
+  	       	cout<<"a19 "<<endl;  ///checho la variabl
 			  return true;
-			 }
- 	  		
+			 } 		
 	       else  return false;
         }
 		
@@ -704,29 +715,30 @@ char Compilador::encontrarValor(){
         }
 		  
 		  //// AUX22 ya tiene auxi 
-	    bool Compilador::aux22(){
-		  string aux = generarCadena();
+	    bool Compilador::aux22(string aux){
+		 // string aux = generarCadena();
 		  int auxi=i;
+
 		  if(aux=="cuando"){
-		  	cout<<"a21 1"<<endl;
+		  	cout<<"a22 1"<<endl;
 		  	   if(aux19(generarCadena())){
-		  	   	  cout<<"a21 2"<<endl;
+		  	   	  cout<<"a22 2"<<endl;
 		  	   	   if(generarCadena()=="!"){
-		  	   	   	cout<<"a21 3"<<endl;
+		  	   	   	cout<<"a22 3"<<endl;
 		  	   	   	     if(condicion()){
-		  	   	   	     	cout<<"a21 4"<<endl;
+		  	   	   	     	cout<<"a22 4"<<endl;
 		  	   	   	     	  if( generarCadena()=="!"){
-		  	   	   	     	  	cout<<"a21 5"<<endl;
+		  	   	   	     	  	cout<<"a22 5"<<endl;
 		  	   	   	     	       if(instruccion() ){
-		  	   	   	     	       	cout<<"a21 6"<<endl;
+		  	   	   	     	       	cout<<"a22 6"<<endl;
 		  	   	   	     	           if(	generarCadena()=="{"){
-		  	   	   	     	           	cout<<"a21 7"<<endl;
+		  	   	   	     	           	cout<<"a22 7"<<endl;
 		  	                               if(aux14()){
-		  	                               	cout<<"a21 8"<<endl;
+		  	                               	cout<<"a22 8"<<endl;
 		  	                                   if(generarCadena()=="}"){
-		  	                                   	cout<<"a21 9"<<endl;
+		  	                                   	cout<<"a22 9"<<endl;
 		  	                                        if(generarCadena()=="!"){
-		  	                                        	cout<<"a21 10"<<endl;
+		  	                                        	cout<<"a22 10"<<endl;
 		  	                                             return true;
 													  }else{
 													  	return false;
@@ -757,7 +769,7 @@ char Compilador::encontrarValor(){
 				 }
 		  }else{
 		  	      if(aux=="Sii"||aux!="" ||aux=="?" ||aux=="}" ||aux=="BYE") {
-		  	      	cout<<"a21 follow"<<endl;
+		  	      	cout<<"a22 follow  "<<endl;
                     i= auxi;
 		  	      	return true;
 					}
@@ -767,17 +779,23 @@ char Compilador::encontrarValor(){
 		  
 		  
 		  /// Aux26 ya tiene el auxi
-		bool Compilador::aux26(){
-			cout<<"Siiiii"<<endl;
-		int auxi=i;		  
-		string aux = generarCadena();		  
+		bool Compilador::aux26(string aux){
+		int auxi=i;	
+	   
+		//string aux = generarCadena();	
+		cout<<"El aux es "+aux<<endl;
+	  
 			 if(aux=="Sii"){
-			 	cout<<"a26 1"<<endl;
+			 	cout<<"a26 1 checo si"<<endl;
 			 	if(generarCadena()=="(" ){
-			 		cout<<"a26 2"<<endl;
+			 		cout<<"a26 2  checo ( "<<endl;
+			 		
 			 	   	if(condicion()){
-			 	   		cout<<"a26 3"<<endl;
-			 		   if(generarCadena()==")"){
+			 	   		cout<<"a26 ya checo condicion"<<endl;
+			 	   	//	i--;
+			 	   		string fun26=generarCadena();
+			 	   		 cout<<"Fun26 "<<fun26<<" "<<generarCadena()<<endl;
+			 		   if(fun26==")"){
 			 		   	cout<<"a26 4"<<endl;
 			 		       if(generarCadena()=="{"){
 			 		       	cout<<"a26 5"<<endl;
@@ -787,8 +805,9 @@ char Compilador::encontrarValor(){
 			 		              	cout<<"a26 7"<<endl;
 			 		                 if(aux27()){
 			 		                 	cout<<"a26 8"<<endl;
-			 		                     if(aux28()){
-			 		                     	cout<<"a26 9"<<endl;
+			 		                     if(aux28()){		 		                     	
+			 		                     	   string hola = generarCadena();
+			 		                     	    cout<<"a26 9 "<<hola<<endl;
 			 		                         if(generarCadena()=="!" ){
 			 		                         	cout<<"a26 10"<<endl;
 			 		                             return true;
@@ -831,8 +850,9 @@ char Compilador::encontrarValor(){
 		  
 	//// Aux27 tiene auxi	  
 		bool Compilador::aux27(){  
+		         int auxi=i;
 			  string aux = generarCadena();
-			  int auxi=i;
+			 
 			  if(aux=="Quiza"){
 			  	cout<<"a27 1"<<endl;
 			  	    if(generarCadena()=="("){
@@ -885,7 +905,7 @@ char Compilador::encontrarValor(){
 					  	return false;
 					  }
 			  }else{
-			  	 if(aux=="Noo" ||aux=="!" ) {
+			  	 if(aux=="Noo" ||aux=="!"||aux=="}") {
 		  	   	  	cout<<"a27 follow"<<endl;
 
 			  	 	i=auxi;
@@ -899,6 +919,7 @@ char Compilador::encontrarValor(){
 		  
 		////Aux28 tiene  no tiene auxi porque el unico follow es !
 		bool Compilador::aux28(){
+			int auxi=i;
 			string aux = generarCadena();
 			
 			if(aux=="Noo"){
@@ -923,16 +944,17 @@ char Compilador::encontrarValor(){
 					return false;
 				}
 			}else{
-				if(aux=="!") 
-				{ cout<<"a28 follow"<<endl;return true;
+				if(aux=="!"||aux=="}") { 
+				i=auxi;
+				cout<<"a28 follow"<<endl;return true;
 				}
 				else return false ;
 			}
 	   }
 	
 	///Aqui no estoy segura de si lleva auxi debido a que el follow está primero	  	
-		bool Compilador::aux30(){
-			  string aux = generarCadena(); 
+		bool Compilador::aux30(string aux){
+			 // string aux = generarCadena(); 
 			 if(aux!="?" ||aux=="BYE" ){
 			 	cout<<"a30 follow"<<endl;
 				 return true;
@@ -1010,38 +1032,17 @@ char Compilador::encontrarValor(){
 	///La funcion condicion no requiere auxi	  
 		bool Compilador::condicion(){
 			
-		/*		if(generarCadena()=="(" && aux34() && generarCadena()==")" && generarCadena()=="!")return true;
-			    else return false;*/
-			    
-			    if(generarCadena()=="("){
-			    	cout<<"cond 1"<<endl;
-			    	if(aux34()){
-			  	    	cout<<"cond 2"<<endl;
-
-			    	  if(generarCadena()==")"){
-			    	  		cout<<"cond 3"<<endl;
-
-			    	        if(generarCadena()=="!"){
-			    	     	    	cout<<"cond 4"<<endl;
-
-			    	           return true;
-								}else{
-									return false;
-								}
-							}else{
-								return false;
-							}
-						}else{
-							return false;
-						}
-				}else{
-                if (generarCadena()=="!") 
-				{
-		    	cout<<"cond follow"<<endl;
-                 return true;
+		
+			    	if(aux34()){ 
+			  	    	cout<<"cond 2  Num IDENT"<<endl;
+                               
+                           //  string aux=generarCadena();
+                            // cout<<aux<<endl;
+			    	      return true;
+					
+			     	}else{
+                          	 return false;		
 				}
-				else return false;		
-							}
 		  }
 		  	
 		  	
@@ -1049,9 +1050,9 @@ char Compilador::encontrarValor(){
 		bool Compilador::aux34(){
 				/// No tiene un folow directo 
 				int auxi=i;
-				if(aux19(generarCadena())){
-				cout<<"a34 1"<<endl;
-
+				string aux=generarCadena();
+				if(aux19(aux)){
+				cout<<"a34 1 varieble="+aux<<endl;
 			      if(aux35()){
 			      	cout<<"a34 2"<<endl;
 			    	if(aux19(generarCadena())){
@@ -1070,9 +1071,9 @@ char Compilador::encontrarValor(){
 					}	          
 				}else{
                 if (generarCadena()==")") {
-                	
-                i=auxi;
-                cout<<"a34 follow"<<endl;
+               	
+                     i=auxi;
+                     cout<<"a34 follow"<<endl;
                 return true;	
 				}
 				else return false;					}				
@@ -1081,36 +1082,37 @@ char Compilador::encontrarValor(){
 		 	///La funcion aux35 no requiere auxi	  
 		bool Compilador::aux35(){
 		   	 string aux = generarCadena();
-		   	      if(aux=="<"|| aux!=">"){
-		   	      	
-		   	      	  cout<<"a35 1"<<endl;
-		   	      	  return true;
-					}
-				  else{
-				  	 	//int auxi = i;
-		   	            string aux2 = generarCadena();
-		   	            string aux3 = aux+aux2;
-				  	  if(aux3!="!=" ||aux3=="<=" || aux3!="=>" ||aux3=="=="  ) {
+		     string aux2=aux+generarCadena();
+		   	 
+			
+				  	  if(aux2=="!=" ||aux2=="<=" || aux2=="=>" ||aux2=="==") {
 				  	  	 cout<<"a35 2"<<endl;
 				  		 return true;
 				      }
 				      // Nota i = auxi;
-  	                 else{return false;}
-				  }
+  	                 else{
+					      if(aux=="<"|| aux==">"){
+					   	  return true;
+					   }
+					   
+					   
+					   return false;}
+				 
 		  }
 		  
 		  
 		  ///Aux32 TIENE auxi
 		bool Compilador::aux36(){
+			int auxi=i;
 			string aux = generarCadena();
-			int auxi=1;
-			
-  	    	if ((aux=="#" || aux=="&")&&aux34()){
+			cout<<"El aux36 maneja"+aux<<endl;
+  	    	if (aux=="#"|| aux=="&"){
+			     if(aux34()){
   	    		cout<<"a36 1"<<endl;
-			 return true;
+			 return true;}
 			}else{
 				if (aux==")"){
-					cout<<"a36 2"<<endl;
+					cout<<"follow a36 2"<<endl;
 					i=auxi;
 					return true;
 				} 
