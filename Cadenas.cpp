@@ -297,8 +297,6 @@ char Compilador::encontrarValor(){
 		    int auxi = i;
 			string aux = generarCadena();
 		//	cout<<aux<<" hola"<<endl;
-			
-			
 			if(aux=="!"){
 					cout<<"a4 follow"<<endl;
 				//Follow debemos regresar posicion, aqui podría ser el final por el ! que es equivalente al punto y coma.
@@ -1025,7 +1023,7 @@ char Compilador::encontrarValor(){
 				}
 				else return false;	
 								}
-	 }
+	   }
 	
 	
 	
@@ -1094,9 +1092,8 @@ char Compilador::encontrarValor(){
 					      if(aux=="<"|| aux==">"){
 					   	  return true;
 					   }
-					   
-					   
-					   return false;}
+					   return false;
+					   }
 				 
 		  }
 		  

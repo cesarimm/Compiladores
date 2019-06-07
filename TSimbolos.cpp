@@ -3,7 +3,15 @@
 bool flagNum=false;
 int conErrores=0;
 using namespace std;
+
+struct dato{
+	string tipo;
+	string nombre;
+};
+
 static vector<string> vSimbolos;
+static vector<dato>  datos;
+
 		void llenar(){	
 			vSimbolos.push_back("simbolo");	
 			vSimbolos.push_back("cadena");	
@@ -32,10 +40,8 @@ static vector<string> vSimbolos;
 			vSimbolos.push_back("@");	
 			///NOTA Se remplaza por el @ vSimbolos.push_back("'\'");
 		}
-
-
-    		
-	bool validarNumero(string aux){
+		
+			bool validarNumero(string aux){
 			int error=0;
 			char a;
 			 for(int i=0;i<aux.size();i++){
@@ -48,9 +54,8 @@ static vector<string> vSimbolos;
 		if(error==0)return true;
 		else return false;	 
 	 }
-
-
-    bool buscarSimbolo(string aux){
+		
+	 bool buscarSimbolo(string aux){
     	int a =(int)aux[0];
     	if(find(vSimbolos.begin(), vSimbolos.end(), aux)!=vSimbolos.end()){
     	//	cout<<"Encontrado"<<endl;
@@ -74,6 +79,46 @@ static vector<string> vSimbolos;
 		   
 		}
 	}
+		
+			
+		
+   bool verificarDato(dato d){
+		if(datos.size()!=0){
+				if(find(datos.begin(), datos.end(), d)!=datos.end()){
+	    		cout<<"Encontrado"<<endl;
+	    		return true;
+			}else{
+				cout<<"NOOO Encontrado"<<endl;
+				return false;
+				}
+		}else{
+		 return true;
+		}
+		
+	}
+		
+		
+	void agregarDato(string tipo, string nombre){	
+		dato d;
+		d.nombre=nombre;
+		d.tipo=tipo;
+		
+		if(verificarDato(d))		
+		datos.push_back(d);	
+		else
+		cout<<"La variable "+d.nombre+" ya esta declarada"<<endl;	
+	}
+	
+  	
+	
+	
+
+
+    		
+
+
+
+
 	
 
 
