@@ -9,11 +9,16 @@ struct dato{
 	string nombre;
 };
 
+struct funcion{
+	string nombre;
+	vector<string> tiposVar;
+};
 
 
 
 static vector<string> vSimbolos;
 static vector<dato>  datos;
+static vector<funcion> funciones;
 
 		void llenar(){	
 		
@@ -145,7 +150,10 @@ static vector<dato>  datos;
 		 }
 		 
 		 //En caso de que no este la varable
-			 if(flagAux) return flag;	
+			 if(flagAux) {
+			 cout<<nombre<<" No ha sido declarada"<<endl;
+			 return flag;		
+			 }
 			  
 			  if(dAux.tipo=="entero"){
 		    	if(validarNumero(valor)){
@@ -185,13 +193,35 @@ static vector<dato>  datos;
 						 }
 							}
 							
+						if(!flag){
+								cout<<nombre<<" Tipo de dato incompatible"<<endl;	
+							}
+							
 							return flag;
 					 
    }	
 
 
+	void agregarFuncion(funcion f){	
+		funciones.push_back(f);
+	}
 
 
+   bool verificarFuncion(funcion f){ 	
+   	bool flag = false;
+		   	if(datos.size()!=0){	
+		       	for(int i=0; i<funciones.size(); i++){
+					    if(funciones[i].nombre==f.nombre){
+							flag=true;
+							break;
+						}
+				}		
+			}
+					
+		return flag;	
+	}
+	
+	
 	
 
 

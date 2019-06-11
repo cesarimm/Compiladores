@@ -1,1 +1,1 @@
--entero var1?var2?var3!  var1=50! @entero sim=10?som=0?sum=13!  sim=b! declara. void funcion(entero){Sii(var1==var2)!{go. funcion()!}}!  BYE BYE BYE BYE
+-entero var1?var2?var3!  @entero sim=10?som=0?sum=10!  declara. void funcion(entero?decimal){Sii(var1==var2)!{go. funcion(var1?var2!)!}}!  BYE BYE BYE BYE

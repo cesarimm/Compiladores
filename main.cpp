@@ -6,12 +6,16 @@
 //bandera para el final del documento
 int main(){
 	llenar();
-/*	llenar();
+	llenar();
 	Compilador comp;
 	comp.extraerTexto();        
-     comp.programa();	*/
+     comp.programa();	
      
- dato d;
+     for(int i=0;i<comp.var.size();i++){
+     	cout<<"elementos del vector "<<comp.var[i]<<endl;
+	 }
+     
+/* dato d;
  d.nombre="var1";
  d.tipo="simbolo";
  
@@ -27,7 +31,7 @@ int main(){
  }
  else{
  	 	cout<<"El tipo es invalido"<<endl;
- }
+ }*/
  
  
 	return 0;

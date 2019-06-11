@@ -11,6 +11,9 @@ class Compilador{
 	public:
 		//Variables
 		string cadena; // arreglo donde queda guardado lo que se extrajo
+		string tipo;
+		string nombre;
+		vector<string> var;
         int i=0; // el contador en el arreglo
 		int ref; 
         int j; //Contador para los strings
@@ -268,6 +271,7 @@ char Compilador::encontrarValor(){
 	    /// En AUX2 no es necesario agregar auxi
 		bool Compilador::aux2(){
 			string aux = generarCadena();
+			tipo=aux;
   	     if(aux=="entero"||aux=="decimal"||aux=="bool"||aux=="cadena"||
 		    aux=="simbolo"||aux=="void") return true;
 	       else return false;
@@ -277,7 +281,8 @@ char Compilador::encontrarValor(){
 		bool Compilador::aux3(){
 		       	///Saber que es un identificador osea un nombre de una variable o de alguna funcion
 			string aux = generarCadena();
-  	    		   //cout <<"Aux "<<aux<<endl;
+  	    	nombre=aux;
+  	    		   agregarDato(tipo, nombre);
 			   if(aux!=""){
 			   	  	cout<<"a2 1"<<endl;
 			   	 if(aux4()){
@@ -371,12 +376,15 @@ char Compilador::encontrarValor(){
   	          	 	return true;	
   	          	 } else return false; */
   	              string aux77 = generarCadena();
-  	              cout<<"Aux7::"<<aux77<<endl;
+  	              //cout<<"Aux7::"<<aux77<<" Tipo "<<tipo<<endl;
+  	              agregarDato(tipo, aux77);
   	              if(aux77!=""){
   	              	cout<<"a7 1"<<endl;
   	              	  if(generarCadena()=="="){
   	              	  	 cout<<"a7 2"<<endl;
-  	              	  	 if(generarCadena()!=""){
+  	              	  	  string valor = generarCadena();
+  	              	  	   verificarTipo(aux77, valor);
+  	              	  	 if(valor!=""){
   	              	  	 	cout<<"a7 3"<<endl;
   	              	  	 	 if(aux8()){
   	              	  	 	 	cout<<"a7 4"<<endl;
@@ -423,13 +431,16 @@ char Compilador::encontrarValor(){
 		
 		///En aux10 Ya ha sido agregado auxi  
 		bool Compilador::aux10(){	
+		     var.clear();
 		      int auxi=i;  
 			  string aux = generarCadena();
 			  if(aux=="declara."){
 			  	cout<<"a10 1"<<endl;
 			  	if(aux2()){
 			  		cout<<"a10 2"<<endl;
-			  		if(generarCadena()!=""){
+			  		   nombre = generarCadena();
+			  		   agregarDato(tipo, nombre);
+			  		if(nombre!=""){
 			  			cout<<"a10 3"<<endl;
 			  			if(generarCadena()=="(" ){
 			  				cout<<"a10 4"<<endl;
@@ -491,6 +502,8 @@ char Compilador::encontrarValor(){
 		/// En aux 12 No es necesario el uso de auxi
 		bool Compilador::aux12(){
 			    string auxiliar = generarCadena();
+			    tipo=auxiliar;
+			    var.push_back(auxiliar);
 			    cout<<"F12::"<<auxiliar<<endl;
 			  if(auxiliar!=""){
 			  	 cout<<"a12 1"<<endl;
@@ -518,6 +531,10 @@ char Compilador::encontrarValor(){
 				  	return false;
 				  }
 			  }else{
+			  	    funcion f;
+			  	    f.tiposVar=var;
+			  	    f.nombre=nombre;
+			  	     agregarFuncion(f);
 			  		if(aux==")"){
 			  			i=auxi;
 			  			cout<<"a13 follow"<<endl;
@@ -611,13 +628,20 @@ char Compilador::encontrarValor(){
 	///La funcion aux17 ya tiene auxi
 	    bool Compilador::aux17(string aux){
 	    	/// No olvidar que la comparacion a diferente de vacio es para el "nombre " que nosostros otorguemos a la variable = IDENT		
-		    
+		    var.clear();
 		    int auxi=i;
 		   // string aux = generarCadena(); 
 	
 			if(aux=="go."){
 				  cout<<"a17 1"<<endl;
-               if(generarCadena()!=""){
+				  ///Verificar que se encuentre declarado como funcion
+				     nombre = generarCadena();
+				      funcion func;
+		                   func.nombre=nombre;
+					   if(!verificarFuncion(func)){
+					   	 cout<<"La funcion "+nombre+" no a sido declarada"<<endl;
+					   }
+               if(nombre!=""){
                	 cout<<"a17 2"<<endl;
                	 if(generarCadena()=="("){
                	 	cout<<"a17 3"<<endl;
@@ -659,12 +683,14 @@ char Compilador::encontrarValor(){
 			
 			int auxi=i;
 			string aux = generarCadena();
+			  cout<<"Aux18 "<<aux<<endl;
 							  
 				  if(aux==")"||aux=="!"){
 				  	cout<<"a18 follow"<<endl;
 				  	i=auxi;
 				  	 return true;
 				  }else{
+				  	 var.push_back(aux);
 				  	if(aux19(aux)){
 				  		cout<<"a18 1"<<endl;
 				  		if(aux20()){
@@ -705,7 +731,10 @@ char Compilador::encontrarValor(){
 					  }
 				  }else{
 				  	 if(aux=="!"){
-					   
+					   funcion func;
+					    func.nombre=nombre;
+					     func.tiposVar=var;
+					      ///Verificar parametros func
 				  	 cout<<"a20 follow"<<endl;
 					    return true;}
 				  	 else return false;
