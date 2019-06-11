@@ -127,12 +127,31 @@ static vector<funcion> funciones;
 	
   	
 	/// Verficar tipo de dato con el valor del dato
-	bool verificaTiposIguales(dato d, dato e){
-		bool flag;
+	bool verificaTiposIguales(string d,string e){
+		bool flag;	
 		
-		if(d.tipo==e.tipo){
-			flag=true;
-			
+		dato a, b;
+		
+		for(int i=0;i<datos.size();i++){
+			if(datos[i].nombre==d){
+				a=datos[i];
+				break;
+			}		
+		}
+		
+			for(int i=0;i<datos.size();i++){
+			if(datos[i].nombre==e){
+				b=datos[i];
+				break;
+			}		
+		}
+		
+		if(a.tipo==b.tipo){
+			cout<<"Datos compatibles"<<endl;
+			return true;
+		}else{
+			 cout<<"Datos no compatibles para la comparacion"<<endl;
+			return false;
 		}		
 	}
 
@@ -221,7 +240,59 @@ static vector<funcion> funciones;
 		return flag;	
 	}
 	
+		bool verificarTipoFuncion(string aux, string f){
+			cout<<"Verificar Funcion "<<aux<<" "<<f<<endl;
+			
+		bool flag = false;
+		dato d;
+		
+		for(int i=0;i<datos.size();i++){
+			if(datos[i].nombre==f){
+				 if(datos[i].tipo==aux){
+				 	flag = true;
+				 	break;
+				 }
+			}
+		}
+		
+		return flag;	
+	}
 	
+	
+	bool comprobarGo(funcion f){
+		bool flag=false;
+		
+		funcion aux;
+		
+		for(int i=0;i<funciones.size();i++){			
+		    if(funciones[i].nombre==f.nombre){
+		    	aux=funciones[i];
+		    	break;
+			}
+		}
+		
+		///Comprobar que tengan el mismo numero de parametros
+		if(aux.tiposVar.size()==f.tiposVar.size()){
+			///comprobar que cumplan el tipo
+			for(int i=0;i<aux.tiposVar.size();i++){
+				if(verificarTipoFuncion(aux.tiposVar[i], f.tiposVar[i])){
+					flag=true;
+				}else{
+					flag=false;
+					break;
+				}
+			}
+		}
+		
+		if(!flag){
+			cout<<"La funcion declarada contiene errores en sus parametros"<<endl;
+		}
+				
+		return flag;
+	}
+	
+	
+
 	
 
 

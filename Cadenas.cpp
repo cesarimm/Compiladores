@@ -735,6 +735,9 @@ char Compilador::encontrarValor(){
 					    func.nombre=nombre;
 					     func.tiposVar=var;
 					      ///Verificar parametros func
+					      if(comprobarGo(func)){
+					      	cout<<"Funcion ejecutada correctamente"<<endl;
+						  }
 				  	 cout<<"a20 follow"<<endl;
 					    return true;}
 				  	 else return false;
@@ -1082,7 +1085,10 @@ char Compilador::encontrarValor(){
 				cout<<"a34 1 varieble="+aux<<endl;
 			      if(aux35()){
 			      	cout<<"a34 2"<<endl;
-			    	if(aux19(generarCadena())){
+			      	string aux2 = generarCadena();
+			      	 cout<<"a34 2 varieble="+aux2<<endl;
+			      	  verificaTiposIguales(aux,aux2);
+			    	if(aux19(aux2)){
 			    		cout<<"a34 3"<<endl;
 			    	  if(aux36()){
 			    	  	cout<<"a34 4"<<endl;
